@@ -1,8 +1,8 @@
 
 public class ClasePrincipal {
 	public static void main(String[] args) {
-		Monitor m = new Monitor();
-		 new Productor(m).productor.start();
-		 new Consumidor(m).consumir.start();
+		Monitor objetoMonitor = new Monitor(); //Objeto monitor, que se le pasará a ambos, consumidor y productor, por parámetro para llevar el control. 
+		 new Productor(objetoMonitor).productor.start();
+		 new Consumidor(objetoMonitor).consumir.start();
 	}
 }
