@@ -3,6 +3,8 @@ public class Monitor {
 
 	private static boolean consumiendo = false;
 	private int ingresos = 0;
+	static int contadorIngresos = 0;
+	static int contadorConsumos = 0;
 
 	public synchronized void producir() {
 		while (consumiendo == true) {
@@ -12,6 +14,7 @@ public class Monitor {
 				e.printStackTrace();
 			}
 		}
+
 		System.out.println(">> Produciendo...");
 		int ingreso = nuevaCantidad();
 		System.out.println("Ingreso: " + "+" + ingreso);
@@ -20,6 +23,7 @@ public class Monitor {
 
 		consumiendo = true;
 		notify();
+		contadorIngresos++;
 	}
 
 	public synchronized void consumir() {
@@ -30,6 +34,12 @@ public class Monitor {
 				e.printStackTrace();
 			}
 		}
+		if (contadorIngresos >= 5) {
+			consumiendo = false;
+			notify();
+			contadorConsumos++;
+			return;
+		}
 		System.out.println(">> Consumiendo...");
 		int extraccion = nuevaCantidad();
 		if (ingresos - extraccion > 0) {
@@ -39,9 +49,9 @@ public class Monitor {
 		} else {
 			System.out.println("Saldo insuficiente. Pretendes sacar " + extraccion + "€.");
 		}
-
 		consumiendo = false;
 		notify();
+		contadorConsumos++;
 	}
 
 	public int nuevaCantidad() {

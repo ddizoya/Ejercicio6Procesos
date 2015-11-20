@@ -1,6 +1,6 @@
 
 public class Productor{
-	Thread productor;
+	static Thread productor;
 	Monitor monitor;
 
 	public Productor(Monitor monitor) {
@@ -8,12 +8,9 @@ public class Productor{
 		productor = new Thread() {
 			@Override
 			public synchronized void run() {
-				int i = 0;
-				while (i < 10){
+				while (Monitor.contadorIngresos < 10){
 					monitor.producir();
-					i++;
-				}
-				
+				}		
 			}
 		};
 	}

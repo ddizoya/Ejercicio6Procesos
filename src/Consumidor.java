@@ -1,6 +1,6 @@
 
 public class Consumidor  {
-	Thread consumir;
+	static Thread consumir;
 	Monitor monitor;
 
 	public Consumidor(Monitor monitor) {
@@ -8,12 +8,9 @@ public class Consumidor  {
 		consumir = new Thread() {
 			@Override
 			public synchronized void run() {
-				int i = 0;
-				while(i < 5){
+				while(Monitor.contadorConsumos < 10){
 					monitor.consumir();
-					i++;
-				}
-			
+				}		
 			}
 		};
 	}

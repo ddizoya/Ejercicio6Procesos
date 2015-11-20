@@ -4,7 +4,5 @@ public class ClasePrincipal {
 		Monitor m = new Monitor();
 		 new Productor(m).productor.start();
 		 new Consumidor(m).consumir.start();
-		
-
 	}
 }
